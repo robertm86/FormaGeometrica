@@ -2,8 +2,10 @@ package edu.udc.psw.gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.udc.psw.modelo.Linha;
 import edu.udc.psw.modelo.Retangulo;
@@ -13,6 +15,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 
 public class JanelaDesenho extends JFrame {
@@ -51,6 +54,31 @@ public class JanelaDesenho extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
+		JMenu mnArquivo = new JMenu("Arquivo");
+		menuBar.add(mnArquivo);
+		
+		JMenuItem mntmSalvarSerial = new JMenuItem("Salvar (serial)");
+		mntmSalvarSerial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File f = escolherArquivo();
+				if(f == null)
+					return;
+				contentPane.salvarSerial(f);
+			}
+		});
+		mnArquivo.add(mntmSalvarSerial);
+		
+		JMenuItem mntmLerSerial = new JMenuItem("Ler (serial)");
+		mntmLerSerial.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File f = escolherArquivo();
+				if(f == null)
+					return;
+				contentPane.lerSerial(f);
+			}
+		});
+		mnArquivo.add(mntmLerSerial);
+		
 		JMenu mnFiguras = new JMenu("Figuras");
 		menuBar.add(mnFiguras);
 		
@@ -85,4 +113,19 @@ public class JanelaDesenho extends JFrame {
 		
 		
 	}
+	
+	private File escolherArquivo() {
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+
+		FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Serial file", "ser");
+		fc.setFileFilter(textFilter);
+
+		int result = fc.showOpenDialog(null);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			return fc.getSelectedFile();
+		}
+		return null;
+	}
+
 }

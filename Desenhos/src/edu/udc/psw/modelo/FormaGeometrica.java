@@ -1,8 +1,10 @@
 package edu.udc.psw.modelo;
 
+import java.io.Serializable;
+
 import edu.udc.psw.modelo.manipulador.ManipuladorFormaGeometrica;
 
-public interface FormaGeometrica {
+public interface FormaGeometrica extends Serializable {
 	
 	public Ponto2D centro();
 	public double area();

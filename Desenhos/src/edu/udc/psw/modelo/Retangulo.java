@@ -68,4 +68,9 @@ public class Retangulo implements FormaGeometrica {
 	public Retangulo clone() {
 		return new Retangulo(a, b);
 	}
+	
+	@Override
+	public String toString(){
+		return a.toString() + b.toString();
+	}
 }

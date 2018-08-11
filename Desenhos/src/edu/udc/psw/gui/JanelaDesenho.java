@@ -75,9 +75,33 @@ public class JanelaDesenho extends JFrame {
 				if(f == null)
 					return;
 				contentPane.lerSerial(f);
+				contentPane.repaint();
 			}
 		});
 		mnArquivo.add(mntmLerSerial);
+		
+		JMenuItem mntmSalvarTexto = new JMenuItem("Salvar (texto)");
+		mntmSalvarTexto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				File f = escolherArquivo();
+				if(f == null)
+					return;
+				contentPane.salvarTexto(f);
+			}
+		});
+		mnArquivo.add(mntmSalvarTexto);
+		
+		JMenuItem mntmLerTexto = new JMenuItem("Ler (texto)");
+		mntmLerTexto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File f = escolherArquivo();
+				if(f == null)
+					return;
+				contentPane.lerTexto(f);
+				contentPane.repaint();
+			}
+		});
+		mnArquivo.add(mntmLerTexto);
 		
 		JMenu mnFiguras = new JMenu("Figuras");
 		menuBar.add(mnFiguras);
@@ -127,5 +151,4 @@ public class JanelaDesenho extends JFrame {
 		}
 		return null;
 	}
-
 }

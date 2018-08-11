@@ -2,6 +2,7 @@ package edu.udc.psw.gui;
 
 import javax.swing.JPanel;
 
+import edu.udc.psw.modelo.FabricaFormas;
 import edu.udc.psw.modelo.FormaGeometrica;
 import edu.udc.psw.modelo.manipulador.ManipuladorFormaGeometrica;
 import edu.udc.psw.colecao.Iterador;
@@ -14,11 +15,14 @@ import java.awt.event.MouseMotionListener;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.Scanner;
 
 public class PainelDesenho extends JPanel implements MouseListener, MouseMotionListener {
 	private static final long serialVersionUID = 1L;
@@ -93,6 +97,50 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void salvarTexto(File f) {
+		FileWriter output; // objeto utilizado para gerar saída de texto no arquivo
+		
+		try {
+			output = new FileWriter(f);
+			
+			FormaGeometrica formaAux;
+			Iterador<FormaGeometrica> it = listaFormaGeometrica.getInicio();
+
+			formaAux = it.getObjeto();
+			while (formaAux != null) {
+				output.append(formaAux.getClass().getSimpleName() + " " + formaAux.toString() + "\n");
+				formaAux = it.proximo();
+			}
+			
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+
+	public void lerTexto(File f) {
+		Scanner input = null;
+
+		// Criar um método na lista para realizar esta operação
+		while (!listaFormaGeometrica.isVazia()) {
+			listaFormaGeometrica.removerInicio();
+		}
+
+		try {
+			input = new Scanner( f );
+			while (input.hasNextLine()) {
+				String str = input.nextLine();
+				FormaGeometrica formaAux = FabricaFormas.fabricarFormaGeometrica(str);
+				
+				listaFormaGeometrica.inserirFim(formaAux);
+			}
+			
+		}  catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void setFormaGeometrica(FormaGeometrica forma) {
@@ -186,4 +234,5 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
 		// TODO Auto-generated method stub
 
 	}
+
 }

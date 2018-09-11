@@ -1,12 +1,11 @@
 package edu.udc.psw.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import edu.udc.psw.desenhos.controle.Documento;
 import edu.udc.psw.modelo.Linha;
 import edu.udc.psw.modelo.Retangulo;
 import edu.udc.psw.modelo.Ponto2D;
@@ -21,32 +20,20 @@ import java.awt.event.ActionEvent;
 public class JanelaDesenho extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private PainelDesenho contentPane;
+	private Documento doc;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JanelaDesenho frame = new JanelaDesenho();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public JanelaDesenho() {
+	public JanelaDesenho(Documento doc) {
 		setTitle("Janela de desenho");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
-		contentPane = new PainelDesenho();
+		this.doc = doc;
+		
+		contentPane = new PainelDesenho(doc);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -63,7 +50,7 @@ public class JanelaDesenho extends JFrame {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				contentPane.salvarSerial(f);
+				doc.salvarSerial(f);
 			}
 		});
 		mnArquivo.add(mntmSalvarSerial);
@@ -74,7 +61,7 @@ public class JanelaDesenho extends JFrame {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				contentPane.lerSerial(f);
+				doc.lerSerial(f);
 				contentPane.repaint();
 			}
 		});
@@ -86,7 +73,7 @@ public class JanelaDesenho extends JFrame {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				contentPane.salvarTexto(f);
+				doc.salvarTexto(f);
 			}
 		});
 		mnArquivo.add(mntmSalvarTexto);
@@ -97,7 +84,7 @@ public class JanelaDesenho extends JFrame {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				contentPane.lerTexto(f);
+				doc.lerTexto(f);
 				contentPane.repaint();
 			}
 		});

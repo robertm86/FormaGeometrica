@@ -1,31 +1,30 @@
 package edu.udc.psw.colecao;
 
-
 public class ListaEncadeada<TIPO> {
 	private class No {
 		public No proximo;
 		public No anterior;
-		
+
 		public TIPO dado;
 	};
 
 	private class ImplementaIterador implements Iterador<TIPO> {
 		public No noAtual;
-		
+
 		public ImplementaIterador(No noAtual) {
 			this.noAtual = noAtual;
 		}
-		
+
 		@Override
 		public TIPO getObjeto() {
-			if(noAtual == null)
+			if (noAtual == null)
 				return null;
 			return noAtual.dado;
 		}
 
 		@Override
 		public TIPO proximo() {
-			if(noAtual == null)
+			if (noAtual == null)
 				return null;
 			TIPO dado = noAtual.dado;
 			noAtual = noAtual.proximo;
@@ -34,7 +33,7 @@ public class ListaEncadeada<TIPO> {
 
 		@Override
 		public TIPO anterior() {
-			if(noAtual == null)
+			if (noAtual == null)
 				return null;
 			TIPO dado = noAtual.dado;
 			noAtual = noAtual.anterior;
@@ -46,13 +45,13 @@ public class ListaEncadeada<TIPO> {
 	private No fim = null;
 
 	private int tamanho = 0;
-	
+
 	public int getTamanho() {
 		return tamanho;
 	}
-	
+
 	public boolean isVazia() {
-		if(tamanho == 0)
+		if (tamanho == 0)
 			return true;
 		return false;
 	}
@@ -60,7 +59,7 @@ public class ListaEncadeada<TIPO> {
 	public Iterador<TIPO> getInicio() {
 		return new ImplementaIterador(inicio);
 	}
-	
+
 	public Iterador<TIPO> getFim() {
 		return new ImplementaIterador(fim);
 	}
@@ -70,8 +69,8 @@ public class ListaEncadeada<TIPO> {
 		novo.dado = obj;
 		novo.proximo = inicio;
 		novo.anterior = null;
-		
-		if(inicio == null) {
+
+		if (inicio == null) {
 			inicio = novo;
 			fim = novo;
 		} else {
@@ -98,20 +97,20 @@ public class ListaEncadeada<TIPO> {
 		tamanho++;
 	}
 
-	public void inserir(TIPO obj, int pos) {		
-		if(pos < 1 || pos > tamanho + 1)
+	public void inserir(TIPO obj, int pos) {
+		if (pos < 1 || pos > tamanho + 1)
 			return;
-		
-		if(pos == 1) { // novo inicio
+
+		if (pos == 1) { // novo inicio
 			inserirInicio(obj);
 			return;
 		}
-		
-		if(pos == tamanho + 1) { // novo fim
+
+		if (pos == tamanho + 1) { // novo fim
 			inserirFim(obj);
 			return;
 		}
-		
+
 		No novo = new No();
 		novo.dado = obj;
 		novo.proximo = null;
@@ -120,17 +119,17 @@ public class ListaEncadeada<TIPO> {
 		// inserir no meio da lista
 		No aux = inicio;
 		int cont = 1;
-		
-		while(cont < pos ) {
+
+		while (cont < pos) {
 			aux = aux.proximo;
 			cont++;
 		}
-		
+
 		novo.anterior = aux.anterior;
 		novo.proximo = aux;
 		aux.anterior.proximo = novo;
 		aux.anterior = novo;
-		
+
 		tamanho++;
 	}
 
@@ -154,12 +153,12 @@ public class ListaEncadeada<TIPO> {
 	}
 
 	public TIPO removerFim() {
-		if (fim == null) 
+		if (fim == null)
 			return null;
 
 		TIPO dado = fim.dado;
 
-		if (inicio == fim) { //if(tamanho == 0)
+		if (inicio == fim) { // if(tamanho == 0)
 			inicio = null;
 			fim = null;
 		} else {
@@ -172,33 +171,38 @@ public class ListaEncadeada<TIPO> {
 	}
 
 	public TIPO remover(int pos) {
-		if(pos < 1 || pos > tamanho)
+		if (pos < 1 || pos > tamanho)
 			return null;
-		
-		if(pos == 1) { // remover inicio
+
+		if (pos == 1) { // remover inicio
 			return removerInicio();
 		}
-		
-		if(pos == tamanho) { // remover o fim
+
+		if (pos == tamanho) { // remover o fim
 			return removerFim();
 		}
-		
+
 		No aux = inicio;
 		int cont = 1;
-		
+
 		// remover no do meio da lista
-		while(cont < pos ) {
+		while (cont < pos) {
 			aux = aux.proximo;
 			cont++;
 		}
-		
+
 		TIPO dado = aux.dado;
-		
+
 		aux.anterior.proximo = aux.proximo;
 		aux.proximo.anterior = aux.anterior;
-		
+
 		tamanho--;
 		return dado;
+	}
+
+	public void removerTudo() {
+		while (inicio != null)
+			removerInicio();
 	}
 
 	public TIPO pesquisar(int pos) {
@@ -219,6 +223,3 @@ public class ListaEncadeada<TIPO> {
 		return aux.dado;
 	}
 }
-
-
-

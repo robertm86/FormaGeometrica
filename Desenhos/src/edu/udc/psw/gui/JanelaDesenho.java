@@ -44,52 +44,29 @@ public class JanelaDesenho extends JFrame {
 		JMenu mnArquivo = new JMenu("Arquivo");
 		menuBar.add(mnArquivo);
 		
-		JMenuItem mntmSalvarSerial = new JMenuItem("Salvar (serial)");
+		JMenuItem mntmSalvarSerial = new JMenuItem("Salvar");
 		mntmSalvarSerial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				doc.salvarSerial(f);
+				JanelaDesenho.this.doc.salvarFormas(f);
 			}
 		});
 		mnArquivo.add(mntmSalvarSerial);
 		
-		JMenuItem mntmLerSerial = new JMenuItem("Ler (serial)");
+		JMenuItem mntmLerSerial = new JMenuItem("Ler");
 		mntmLerSerial.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File f = escolherArquivo();
 				if(f == null)
 					return;
-				doc.lerSerial(f);
+				JanelaDesenho.this.doc.lerFormas(f);
 				contentPane.repaint();
 			}
 		});
 		mnArquivo.add(mntmLerSerial);
-		
-		JMenuItem mntmSalvarTexto = new JMenuItem("Salvar (texto)");
-		mntmSalvarTexto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				File f = escolherArquivo();
-				if(f == null)
-					return;
-				doc.salvarTexto(f);
-			}
-		});
-		mnArquivo.add(mntmSalvarTexto);
-		
-		JMenuItem mntmLerTexto = new JMenuItem("Ler (texto)");
-		mntmLerTexto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				File f = escolherArquivo();
-				if(f == null)
-					return;
-				doc.lerTexto(f);
-				contentPane.repaint();
-			}
-		});
-		mnArquivo.add(mntmLerTexto);
-		
+				
 		JMenu mnFiguras = new JMenu("Figuras");
 		menuBar.add(mnFiguras);
 		

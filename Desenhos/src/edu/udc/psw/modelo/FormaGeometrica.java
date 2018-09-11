@@ -12,6 +12,8 @@ public interface FormaGeometrica extends Serializable {
 	public double base();
 	public double altura();
 	
+	public byte[] toArray();
+
 	public ManipuladorFormaGeometrica getManipulador();
 	
 	public FormaGeometrica clone();

@@ -1,9 +1,12 @@
 package edu.udc.psw.modelo;
 
+import java.nio.ByteBuffer;
+
 import edu.udc.psw.modelo.manipulador.ManipuladorFormaGeometrica;
 import edu.udc.psw.modelo.manipulador.ManipuladorRetangulo;
 
 public class Retangulo implements FormaGeometrica {
+	public static final long serialVersionUID = 3L;
 	private Ponto2D a;
 	private Ponto2D b;
 	
@@ -22,6 +25,32 @@ public class Retangulo implements FormaGeometrica {
 		b = new Ponto2D(bx, by);
 	}
 	
+	public Retangulo(byte bytes[]){
+		if(ByteBuffer.wrap(bytes, 0, 8).getLong() != serialVersionUID) {
+			a = new Ponto2D();
+			b = new Ponto2D();
+			return;
+		}
+		double ax = ByteBuffer.wrap(bytes, 8, 8).getDouble();
+		double ay = ByteBuffer.wrap(bytes, 16, 8).getDouble();
+		double bx = ByteBuffer.wrap(bytes, 24, 8).getDouble();
+		double by = ByteBuffer.wrap(bytes, 32, 8).getDouble();
+
+		a = new Ponto2D(ax, ay);
+		b = new Ponto2D(bx, by);
+	}
+
+	@Override
+	public byte[] toArray() {
+		byte[] bytes = new byte[40];
+		ByteBuffer.wrap(bytes,0,8).putLong(serialVersionUID);
+		ByteBuffer.wrap(bytes,8,8).putDouble(a.getX());
+	    ByteBuffer.wrap(bytes,16,8).putDouble(a.getY());
+		ByteBuffer.wrap(bytes,24,8).putDouble(b.getX());
+	    ByteBuffer.wrap(bytes,32,8).putDouble(b.getY());
+	    return bytes;
+	}
+
 	public Ponto2D getA() {
 		return a.clone();
 	}

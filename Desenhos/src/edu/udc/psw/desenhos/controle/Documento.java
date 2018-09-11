@@ -63,7 +63,7 @@ public class Documento {
 				arq = new ArquivoFormasSerial(file);
 			if (ext.compareTo("txt") == 0)
 				arq = new ArquivoFormasTexto(file);
-			if (ext.compareTo("txt") == 0)
+			if (ext.compareTo("bin") == 0)
 				arq = new ArquivoFormasBinario(file);
 			arq.salvarFormas(listaFormas);
 
@@ -79,7 +79,7 @@ public class Documento {
 				arq = new ArquivoFormasSerial(file);
 			if (ext.compareTo("txt") == 0)
 				arq = new ArquivoFormasTexto(file);
-			if (ext.compareTo("txt") == 0)
+			if (ext.compareTo("bin") == 0)
 				arq = new ArquivoFormasBinario(file);
 			listaFormas = arq.lerFormas();
 

@@ -6,13 +6,17 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import edu.udc.psw.desenhos.controle.Documento;
+import edu.udc.psw.modelo.Circulo;
 import edu.udc.psw.modelo.Linha;
+import edu.udc.psw.modelo.Poligono;
 import edu.udc.psw.modelo.Retangulo;
 import edu.udc.psw.modelo.Ponto2D;
+import edu.udc.psw.modelo.Triangulo;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
@@ -99,6 +103,34 @@ public class JanelaDesenho extends JFrame {
 		});
 		mnFiguras.add(mntmRetangulo);
 		
+		JMenuItem mntmTriangulo = new JMenuItem("Triangulo");
+		mntmTriangulo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Triangulo  triangulo  = new Triangulo();
+				contentPane.setFormaGeometrica(triangulo );
+			}
+		});
+		mnFiguras.add(mntmTriangulo );
+		
+		JMenuItem mntmCirculo = new JMenuItem("Circulo");
+		mntmCirculo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Circulo  circulo  = new Circulo();
+				contentPane.setFormaGeometrica(circulo );
+			}
+		});
+		mnFiguras.add(mntmCirculo );
+		
+		JMenuItem mntmPoligono = new JMenuItem("Poligono");
+		mntmPoligono.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Poligono  poligono  = new Poligono();
+				contentPane.setFormaGeometrica( poligono );
+			}
+		});
+		
+		mnFiguras.add(mntmPoligono );
+		
 		
 	}
 	
@@ -106,8 +138,14 @@ public class JanelaDesenho extends JFrame {
 		JFileChooser fc = new JFileChooser();
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 
-		FileNameExtensionFilter textFilter = new FileNameExtensionFilter("Serial file", "ser");
-		fc.setFileFilter(textFilter);
+		FileNameExtensionFilter textFilterS = new FileNameExtensionFilter("Serial file", "ser");
+		fc.setFileFilter(textFilterS);
+		
+		FileNameExtensionFilter textFilterB = new FileNameExtensionFilter("Binario file", "bin");
+		fc.setFileFilter(textFilterB);
+		
+		FileNameExtensionFilter textFilterT = new FileNameExtensionFilter("Texto file", "txt");
+		fc.setFileFilter(textFilterT);
 
 		int result = fc.showOpenDialog(null);
 		if (result == JFileChooser.APPROVE_OPTION) {

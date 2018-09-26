@@ -34,6 +34,8 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
 	private FormaGeometrica forma;
 	
 	private Documento doc;
+	
+	private static int clique = 0;
 
 
 	/**
@@ -136,6 +138,14 @@ public class PainelDesenho extends JPanel implements MouseListener, MouseMotionL
 	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static int getClique() {
+		return clique;
+	}
+
+	public static void setClique(int click) {
+		clique = click;
 	}
 
 }
